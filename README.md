@@ -65,17 +65,7 @@ Devops-Assessment/
 # Architecture
 
 ```
-                Internet
-                    │
-                    ▼
-        Application Load Balancer
-                    │
-                    ▼
-              ECS Fargate Service
-                    │
-                    ▼
-             PostgreSQL RDS Database
-
+![Architecture](images/architecture.png)
 
 Local Development
 
@@ -102,6 +92,8 @@ Docker Compose
 ---
 
 # Terraform
+
+![Terraform Plan](images/terraform-plan.png)
 
 ## Development Environment
 
@@ -134,6 +126,8 @@ terraform plan
 ---
 
 # Local Database Setup
+
+![Docker Running](images/docker-running and database-verification.png)
 
 Start PostgreSQL
 
@@ -243,6 +237,8 @@ EXPLAIN ANALYZE
 
 # Backup
 
+![Backup](images/backup.png)
+
 Create backup
 
 ```bash
@@ -263,6 +259,8 @@ backups/hoteldb_20260706_192845.sql
 ---
 
 # Restore
+
+![Restore](images/restore.png)
 
 Restore latest backup
 

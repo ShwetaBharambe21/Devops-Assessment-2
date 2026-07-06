@@ -1,6 +1,10 @@
 name: Terraform Validation
 
 on:
+  push:
+    branches:
+      - main
+      
   pull_request:
     branches:
       - main
@@ -27,3 +31,5 @@ jobs:
       - run: terraform validate
 
       - run: terraform plan -refresh=false
+
+      
