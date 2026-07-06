@@ -1,0 +1,319 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict XkL4h2Z0uac1oSwXvGu54sXV6Frp8LMMB45gKoFTn2yFx90HhCwtieGupeNbZEz
+
+-- Dumped from database version 16.14 (Debian 16.14-1.pgdg13+1)
+-- Dumped by pg_dump version 16.14 (Debian 16.14-1.pgdg13+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: booking_events; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.booking_events (
+    id bigint NOT NULL,
+    booking_id uuid NOT NULL,
+    event_type character varying(100) NOT NULL,
+    payload jsonb,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.booking_events OWNER TO postgres;
+
+--
+-- Name: booking_events_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.booking_events_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.booking_events_id_seq OWNER TO postgres;
+
+--
+-- Name: booking_events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.booking_events_id_seq OWNED BY public.booking_events.id;
+
+
+--
+-- Name: hotel_bookings; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.hotel_bookings (
+    id uuid NOT NULL,
+    org_id uuid NOT NULL,
+    hotel_id character varying(100) NOT NULL,
+    city character varying(100) NOT NULL,
+    checkin_date date NOT NULL,
+    checkout_date date NOT NULL,
+    amount numeric(12,2) NOT NULL,
+    status character varying(50) NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.hotel_bookings OWNER TO postgres;
+
+--
+-- Name: booking_events id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.booking_events ALTER COLUMN id SET DEFAULT nextval('public.booking_events_id_seq'::regclass);
+
+
+--
+-- Data for Name: booking_events; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.booking_events (id, booking_id, event_type, payload, created_at) FROM stdin;
+1	b622c153-6c4f-496a-aae5-4f152e213cf9	checked_out	{}	2026-07-06 12:37:03.885391
+2	2bbd9e2b-c467-4d0f-8ce0-318fcbca6b2c	created	{}	2026-07-06 12:37:03.885391
+3	348b46a6-c288-45f8-a63a-d0b8f37ae22f	created	{}	2026-07-06 12:37:03.885391
+4	cfe33790-ebeb-48d2-a864-9d4be8ed7101	checked_in	{}	2026-07-06 12:37:03.885391
+5	78d09c32-81f4-4947-b731-777725fc0ddb	checked_out	{}	2026-07-06 12:37:03.885391
+6	2ef3168e-330b-4934-9cd5-430d6374f910	checked_in	{}	2026-07-06 12:37:03.885391
+7	a9f72072-0095-42f8-a53d-c99652f73f97	payment	{}	2026-07-06 12:37:03.885391
+8	ffa11cbe-e133-4a45-9dc5-8ea525a04168	checked_out	{}	2026-07-06 12:37:03.885391
+9	f473266a-f23b-425d-80b8-49841294c2f0	payment	{}	2026-07-06 12:37:03.885391
+10	7f9f8223-b683-4100-949a-9f9b872efd73	checked_in	{}	2026-07-06 12:37:03.885391
+11	869db76b-9fa2-4d6d-95c5-6b7925aeedd5	checked_out	{}	2026-07-06 12:37:03.885391
+12	bd81d0b2-66fe-4179-b12e-db3ed489139f	payment	{}	2026-07-06 12:37:03.885391
+13	92dfec77-bf2a-44ba-8237-63245d591d94	payment	{}	2026-07-06 12:37:03.885391
+14	ed7bf4d5-3798-4af6-9056-1dabb8406fbb	created	{}	2026-07-06 12:37:03.885391
+15	cb504ce2-3c53-4c9b-9db4-c246289d403e	checked_out	{}	2026-07-06 12:37:03.885391
+16	98ba3c81-6762-4368-8e2e-0ecf1c8d12bb	payment	{}	2026-07-06 12:37:03.885391
+17	7ac533c5-4edd-4e11-a7b2-fa23f8de08bd	created	{}	2026-07-06 12:37:03.885391
+18	166fa0a0-12c5-4f2a-a097-70ed52cb34e7	created	{}	2026-07-06 12:37:03.885391
+19	4d7daaff-2619-4327-968d-5f4b3bf9937e	payment	{}	2026-07-06 12:37:03.885391
+20	6e211985-72a2-4481-8f68-be31f73f9da2	checked_out	{}	2026-07-06 12:37:03.885391
+21	205efbb1-851e-47f2-8bf6-a99c9d0d5d03	payment	{}	2026-07-06 12:37:03.885391
+22	7d3b30f9-ebb2-40f1-a90a-6cfa572473a6	payment	{}	2026-07-06 12:37:03.885391
+23	98a10b2f-8298-4afb-9ff9-bb587b4a7ac0	payment	{}	2026-07-06 12:37:03.885391
+24	49e6c5ef-6916-4403-955b-7e0bdd1aa190	created	{}	2026-07-06 12:37:03.885391
+25	667a51b7-c170-428d-ab36-67e93a33df21	created	{}	2026-07-06 12:37:03.885391
+26	ecd22d50-3b63-4555-8459-588b7f58adf1	payment	{}	2026-07-06 12:37:03.885391
+27	f5942786-9b3d-4366-9445-4982d4b93caa	checked_in	{}	2026-07-06 12:37:03.885391
+28	ab57947e-d1be-4d67-8615-14680d4364cb	checked_out	{}	2026-07-06 12:37:03.885391
+29	1f1c6866-057c-413b-8775-2c54765b353d	checked_out	{}	2026-07-06 12:37:03.885391
+30	8fb9bb76-ece8-4307-85cd-b3cab0632029	created	{}	2026-07-06 12:37:03.885391
+31	17e35811-58cd-480b-ab3f-008d92ff3b3b	checked_out	{}	2026-07-06 12:37:03.885391
+32	e9c1cd4d-1f32-496c-8ef4-d39526d19810	payment	{}	2026-07-06 12:37:03.885391
+33	92233941-22a3-4ce6-8d11-dc0f68cd8d1c	payment	{}	2026-07-06 12:37:03.885391
+34	9e01fefb-59f3-4767-8e7a-aa95bb4c3ab8	payment	{}	2026-07-06 12:37:03.885391
+35	93098d5f-cbd1-4646-8fa4-b99a8e0c412a	checked_out	{}	2026-07-06 12:37:03.885391
+36	f8a6b3ed-e7ba-4bd4-8411-5b9a26abf737	payment	{}	2026-07-06 12:37:03.885391
+37	7d7a93cf-a752-4b37-96ab-4c234fe7fe3c	payment	{}	2026-07-06 12:37:03.885391
+38	24ff2046-3923-4a13-af8e-0df1e5d31818	checked_in	{}	2026-07-06 12:37:03.885391
+39	6f73ec3a-f082-4845-b064-a89f0dd8e411	checked_out	{}	2026-07-06 12:37:03.885391
+40	05e0463e-478e-4510-9d88-a88fc0eac702	created	{}	2026-07-06 12:37:03.885391
+41	913c1d6d-f9b9-42ce-9e6f-bad0152cb98f	payment	{}	2026-07-06 12:37:03.885391
+42	227e0b27-fdec-4075-8f7a-5784afc67bfa	payment	{}	2026-07-06 12:37:03.885391
+43	fe4ea573-98cb-43a7-b7cf-577504498575	payment	{}	2026-07-06 12:37:03.885391
+44	82598a61-6547-4f12-bc3e-13520592788d	checked_in	{}	2026-07-06 12:37:03.885391
+45	62ea323f-10e8-4c2d-abfb-3029a1962392	checked_out	{}	2026-07-06 12:37:03.885391
+46	d1db38d4-919f-4311-aee8-5b4e2ce0bd20	payment	{}	2026-07-06 12:37:03.885391
+47	b3cd21f8-8265-47fb-b3b4-da9e55e4f3ce	checked_in	{}	2026-07-06 12:37:03.885391
+48	87758b55-5b1b-4bf1-8a13-7f5e4d48da2a	created	{}	2026-07-06 12:37:03.885391
+49	e211ed92-6009-4164-aaea-aedbe48c853c	checked_in	{}	2026-07-06 12:37:03.885391
+50	f7243bc3-11e7-4005-93c9-ef3a1873cca8	payment	{}	2026-07-06 12:37:03.885391
+51	e4b0b045-f45c-4acd-8ba7-21e15a8713fc	created	{}	2026-07-06 12:37:03.885391
+52	3b6aba91-a726-4027-9d1c-fd405147d983	checked_in	{}	2026-07-06 12:37:03.885391
+53	0571fe2d-556d-40fb-be63-0fb601d6c7e9	checked_in	{}	2026-07-06 12:37:03.885391
+54	eb60769f-6e64-43a4-8080-21e334b3ead4	checked_out	{}	2026-07-06 12:37:03.885391
+55	0dc21508-a67b-46ff-a46f-8e46648193e0	created	{}	2026-07-06 12:37:03.885391
+56	d3190b81-b2c3-42b6-bc3a-6a5091dbc821	checked_in	{}	2026-07-06 12:37:03.885391
+57	6e4cce0b-3aa1-4d94-8604-1e97c0b82bd9	checked_out	{}	2026-07-06 12:37:03.885391
+58	0a9da541-7483-4d4a-939b-cdfa6fb3366d	payment	{}	2026-07-06 12:37:03.885391
+59	f91512ef-7045-4fe5-a449-faa326826116	checked_out	{}	2026-07-06 12:37:03.885391
+60	7ab97b4d-1385-4a39-b37d-1c908bfa5d0c	payment	{}	2026-07-06 12:37:03.885391
+\.
+
+
+--
+-- Data for Name: hotel_bookings; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.hotel_bookings (id, org_id, hotel_id, city, checkin_date, checkout_date, amount, status, created_at) FROM stdin;
+b622c153-6c4f-496a-aae5-4f152e213cf9	202a77bc-1953-4d7a-bf69-7bb015de1a50	HOTEL-7	mumbai	2026-07-20	2026-08-12	4825.34	cancelled	2026-06-17 01:31:09.08761
+2bbd9e2b-c467-4d0f-8ce0-318fcbca6b2c	87f6a012-62b5-480f-8794-96e83a08290b	HOTEL-5	delhi	2026-07-06	2026-08-03	5734.54	pending	2026-07-04 05:59:13.395366
+348b46a6-c288-45f8-a63a-d0b8f37ae22f	ff5a2d57-61b8-44ef-a0bc-0276b3126d7c	HOTEL-14	pune	2026-07-26	2026-08-18	4514.13	confirmed	2026-06-21 23:59:37.663564
+cfe33790-ebeb-48d2-a864-9d4be8ed7101	97fba7fe-3188-407f-87b5-fb4acf71b658	HOTEL-17	delhi	2026-07-19	2026-08-22	7051.74	confirmed	2026-06-24 07:47:35.717188
+78d09c32-81f4-4947-b731-777725fc0ddb	854d3bde-e940-4637-a5fd-f6043d66f98e	HOTEL-17	bangalore	2026-07-21	2026-08-23	5006.60	cancelled	2026-07-04 14:07:13.651377
+2ef3168e-330b-4934-9cd5-430d6374f910	a37be86e-d7fb-47cc-a516-b790a5eb5b12	HOTEL-6	mumbai	2026-07-16	2026-08-10	9457.33	cancelled	2026-07-05 07:08:26.283007
+a9f72072-0095-42f8-a53d-c99652f73f97	653e57ba-4f49-4a5c-94a0-045750e8e444	HOTEL-20	bangalore	2026-07-06	2026-08-23	5097.11	confirmed	2026-07-05 11:36:07.300088
+ffa11cbe-e133-4a45-9dc5-8ea525a04168	c07dfd1d-2660-4629-85bb-f77801d64d24	HOTEL-6	pune	2026-07-24	2026-08-02	7644.37	confirmed	2026-07-03 10:08:57.84186
+f473266a-f23b-425d-80b8-49841294c2f0	0e668ce3-0266-40ca-8aea-0bef94ad7222	HOTEL-11	pune	2026-07-08	2026-08-15	5340.25	pending	2026-06-06 20:23:54.063861
+7f9f8223-b683-4100-949a-9f9b872efd73	2a140b87-6086-4c36-9d29-af64bba3fdb8	HOTEL-11	hyderabad	2026-07-07	2026-08-11	6820.15	pending	2026-06-25 17:04:44.487609
+869db76b-9fa2-4d6d-95c5-6b7925aeedd5	cf7821ea-3ba5-4bfe-af49-d4d3f0674940	HOTEL-15	mumbai	2026-07-24	2026-08-17	6011.51	confirmed	2026-06-10 17:39:03.599399
+bd81d0b2-66fe-4179-b12e-db3ed489139f	c9a621d6-aa2d-4224-a5e0-858ef3bb2ff6	HOTEL-10	mumbai	2026-07-23	2026-07-29	3661.61	cancelled	2026-06-12 18:14:38.316267
+92dfec77-bf2a-44ba-8237-63245d591d94	65770f26-4d4e-46a1-8583-bd8aae4de6de	HOTEL-19	bangalore	2026-07-25	2026-07-30	4623.87	cancelled	2026-06-26 10:42:04.295261
+ed7bf4d5-3798-4af6-9056-1dabb8406fbb	03e99bdc-8677-4759-b16b-d85c54872b66	HOTEL-18	mumbai	2026-07-22	2026-08-13	4806.38	pending	2026-06-25 04:03:09.808617
+cb504ce2-3c53-4c9b-9db4-c246289d403e	e0922e16-18db-43cf-aa05-2c39f34017ec	HOTEL-18	pune	2026-07-06	2026-08-03	3377.28	confirmed	2026-06-21 17:52:41.645371
+98ba3c81-6762-4368-8e2e-0ecf1c8d12bb	34c43cb4-5b14-4098-a9a6-2ac0f626ca5b	HOTEL-4	pune	2026-07-16	2026-08-01	7327.98	pending	2026-06-28 22:12:24.619962
+7ac533c5-4edd-4e11-a7b2-fa23f8de08bd	04a9893e-3d83-4515-976f-d83f1578b0b1	HOTEL-0	mumbai	2026-07-22	2026-08-13	2059.83	pending	2026-07-01 04:08:09.983963
+166fa0a0-12c5-4f2a-a097-70ed52cb34e7	814f7ef9-de92-41d5-be45-d312f4d569d7	HOTEL-5	bangalore	2026-07-17	2026-08-18	7988.47	pending	2026-06-24 07:18:11.116346
+4d7daaff-2619-4327-968d-5f4b3bf9937e	1cbef21e-543d-487d-967a-a71647a1fe85	HOTEL-19	pune	2026-07-20	2026-08-06	2220.50	pending	2026-07-02 03:01:45.427903
+6e211985-72a2-4481-8f68-be31f73f9da2	52150cad-1b79-4eeb-9ff3-fdbf5ffa6abb	HOTEL-14	delhi	2026-07-21	2026-08-22	8466.12	cancelled	2026-06-21 15:43:00.099684
+205efbb1-851e-47f2-8bf6-a99c9d0d5d03	a0fa8ae4-7f6b-46e9-8465-c16c563eeb45	HOTEL-3	pune	2026-07-19	2026-08-09	4487.38	pending	2026-06-19 16:05:14.168975
+7d3b30f9-ebb2-40f1-a90a-6cfa572473a6	d7bcab90-8e1f-45c7-a6ee-f6a417d90351	HOTEL-6	bangalore	2026-07-23	2026-08-03	1102.47	pending	2026-07-05 22:40:58.453424
+98a10b2f-8298-4afb-9ff9-bb587b4a7ac0	48618b7f-bcf7-45d6-a56c-7e25fd0679c4	HOTEL-5	delhi	2026-07-23	2026-08-12	9661.37	confirmed	2026-07-01 23:08:00.305863
+49e6c5ef-6916-4403-955b-7e0bdd1aa190	763e50b9-b955-44f8-9b9c-33fb2ac140aa	HOTEL-9	bangalore	2026-07-13	2026-07-28	7517.07	confirmed	2026-06-08 01:00:51.799684
+667a51b7-c170-428d-ab36-67e93a33df21	32996769-f1ae-42a5-959d-ee6a578afbcf	HOTEL-3	hyderabad	2026-07-21	2026-08-04	9109.71	confirmed	2026-06-25 03:24:56.158606
+ecd22d50-3b63-4555-8459-588b7f58adf1	6f7dadef-5c98-4836-a59c-14418e021ac6	HOTEL-15	mumbai	2026-07-24	2026-08-16	6908.14	confirmed	2026-06-19 11:01:51.785277
+f5942786-9b3d-4366-9445-4982d4b93caa	42a53740-3b6b-4a59-98b4-3c21e863c500	HOTEL-11	mumbai	2026-07-23	2026-08-03	5186.15	confirmed	2026-06-14 01:26:46.232987
+ab57947e-d1be-4d67-8615-14680d4364cb	dd4be3a3-362c-455f-bdba-d28c8dd39ce7	HOTEL-2	hyderabad	2026-07-20	2026-08-21	1895.51	pending	2026-06-27 04:29:59.168216
+1f1c6866-057c-413b-8775-2c54765b353d	be57db81-57b8-4be9-911a-6d512f54363f	HOTEL-2	bangalore	2026-07-19	2026-08-10	6350.43	pending	2026-06-17 16:00:17.209001
+8fb9bb76-ece8-4307-85cd-b3cab0632029	15b87a5f-4a36-476f-926e-4399e02a3fce	HOTEL-3	pune	2026-07-14	2026-08-18	5245.43	confirmed	2026-07-05 03:09:14.481302
+17e35811-58cd-480b-ab3f-008d92ff3b3b	70abf939-3019-40ea-b4c2-02a11b601717	HOTEL-6	mumbai	2026-07-08	2026-08-04	8246.64	pending	2026-07-01 00:55:21.176771
+e9c1cd4d-1f32-496c-8ef4-d39526d19810	5854ac2e-586b-4df1-a639-10a44bcdc24c	HOTEL-1	pune	2026-07-15	2026-08-18	9333.64	pending	2026-06-09 11:21:02.427624
+92233941-22a3-4ce6-8d11-dc0f68cd8d1c	a4aef9db-7523-4e58-846e-47ed75b2f3b4	HOTEL-11	pune	2026-07-16	2026-08-07	6731.76	pending	2026-06-14 19:01:34.674717
+9e01fefb-59f3-4767-8e7a-aa95bb4c3ab8	ac16833d-6633-4aaf-818d-f8ed4c3b2fe6	HOTEL-18	bangalore	2026-07-25	2026-08-10	9893.01	cancelled	2026-06-07 20:49:36.824051
+93098d5f-cbd1-4646-8fa4-b99a8e0c412a	78f8dd6e-ab0b-4f88-8e71-949213c22e21	HOTEL-2	mumbai	2026-07-13	2026-08-24	7175.48	cancelled	2026-07-06 02:17:36.351697
+f8a6b3ed-e7ba-4bd4-8411-5b9a26abf737	34a56558-14c9-4a48-abf1-9a912368367b	HOTEL-19	delhi	2026-07-14	2026-08-25	3950.33	cancelled	2026-06-16 14:34:26.412972
+7d7a93cf-a752-4b37-96ab-4c234fe7fe3c	ad86d732-0dc8-4c96-a53c-65bb372d178f	HOTEL-15	bangalore	2026-07-25	2026-08-25	8735.17	cancelled	2026-06-23 12:00:41.310444
+24ff2046-3923-4a13-af8e-0df1e5d31818	5bd8118e-4e49-4900-a55a-f47516373c97	HOTEL-17	delhi	2026-07-25	2026-08-23	6426.72	cancelled	2026-06-13 06:46:32.058155
+6f73ec3a-f082-4845-b064-a89f0dd8e411	13155d96-5bf2-4a76-8bb2-af48f2679066	HOTEL-20	mumbai	2026-07-19	2026-08-15	3778.30	confirmed	2026-06-15 01:32:25.558585
+05e0463e-478e-4510-9d88-a88fc0eac702	24fc11a8-5a8f-426b-934d-6770fbfdf8c7	HOTEL-8	mumbai	2026-07-18	2026-07-27	4708.33	pending	2026-06-08 01:29:22.754147
+913c1d6d-f9b9-42ce-9e6f-bad0152cb98f	ee13f82b-7acc-4e25-b9f8-d8212ce104f2	HOTEL-2	mumbai	2026-07-20	2026-07-28	1827.81	pending	2026-06-11 08:55:29.909517
+227e0b27-fdec-4075-8f7a-5784afc67bfa	fdf072fd-f678-466a-9d9a-a2db6b30646a	HOTEL-14	pune	2026-07-10	2026-08-04	2657.48	pending	2026-07-04 11:28:05.54861
+fe4ea573-98cb-43a7-b7cf-577504498575	c1ab92df-0aed-4cd1-b4f3-e57cce3b1538	HOTEL-18	bangalore	2026-07-06	2026-08-06	2985.06	cancelled	2026-06-09 20:39:57.227867
+82598a61-6547-4f12-bc3e-13520592788d	e2a0bbe5-0c2d-4441-93db-348e815ee305	HOTEL-16	mumbai	2026-07-17	2026-08-10	8360.75	cancelled	2026-06-12 01:16:40.342852
+62ea323f-10e8-4c2d-abfb-3029a1962392	4ed4a1a7-3fae-4895-af25-149811aa44bf	HOTEL-13	mumbai	2026-07-09	2026-08-19	5438.50	cancelled	2026-06-07 07:33:46.744931
+d1db38d4-919f-4311-aee8-5b4e2ce0bd20	aecc54d8-7f6d-427b-bf91-05e7dfd13be5	HOTEL-2	delhi	2026-07-13	2026-08-25	7866.18	cancelled	2026-06-20 10:59:55.199802
+b3cd21f8-8265-47fb-b3b4-da9e55e4f3ce	8e69024d-179f-4546-be25-bfd3b159bb4d	HOTEL-6	hyderabad	2026-07-25	2026-08-04	4192.66	pending	2026-06-29 19:42:03.943011
+87758b55-5b1b-4bf1-8a13-7f5e4d48da2a	eab235a7-0fea-46d2-a2c8-9fcb304fdc7a	HOTEL-16	pune	2026-07-08	2026-08-06	2671.46	cancelled	2026-06-26 06:01:29.031378
+e211ed92-6009-4164-aaea-aedbe48c853c	61aa53c0-4464-4fdc-ba23-49a3f94768ad	HOTEL-2	pune	2026-07-24	2026-08-18	1529.45	cancelled	2026-06-12 01:10:06.942734
+f7243bc3-11e7-4005-93c9-ef3a1873cca8	bf872169-ad45-4779-bf1a-5e3a7fc338b7	HOTEL-10	delhi	2026-07-14	2026-08-18	4886.91	cancelled	2026-07-05 08:16:55.32984
+e4b0b045-f45c-4acd-8ba7-21e15a8713fc	b48f87ff-34b8-423e-b548-5fbc94ef9f4d	HOTEL-15	mumbai	2026-07-11	2026-08-07	7516.63	confirmed	2026-07-06 06:50:23.724634
+3b6aba91-a726-4027-9d1c-fd405147d983	4847178d-d640-47f9-8b1d-07021cc073b4	HOTEL-7	bangalore	2026-07-21	2026-08-07	8615.10	confirmed	2026-06-19 20:52:24.176336
+0571fe2d-556d-40fb-be63-0fb601d6c7e9	aceade67-8298-48ce-82e9-0934eef5c6b2	HOTEL-13	pune	2026-07-11	2026-08-22	9716.48	confirmed	2026-06-10 13:17:54.366398
+eb60769f-6e64-43a4-8080-21e334b3ead4	cb36636d-f697-462d-a9b7-a6671993ba74	HOTEL-5	delhi	2026-07-08	2026-08-05	8392.56	confirmed	2026-07-04 11:59:03.029596
+0dc21508-a67b-46ff-a46f-8e46648193e0	a017fdd1-6c8b-4cd4-9abf-751fa2ebdb91	HOTEL-6	hyderabad	2026-07-07	2026-08-25	4546.78	cancelled	2026-07-03 09:02:24.60662
+d3190b81-b2c3-42b6-bc3a-6a5091dbc821	00541909-1e01-4289-8d2a-69b10c691b59	HOTEL-10	delhi	2026-07-16	2026-08-08	2999.71	cancelled	2026-07-05 05:46:49.997343
+6e4cce0b-3aa1-4d94-8604-1e97c0b82bd9	d89e9dab-99fe-43da-87e9-aeec4b2da5af	HOTEL-19	bangalore	2026-07-26	2026-08-05	1405.95	confirmed	2026-07-02 09:29:41.290614
+0a9da541-7483-4d4a-939b-cdfa6fb3366d	009f85df-6104-46cd-a428-ed29b512e465	HOTEL-11	mumbai	2026-07-17	2026-08-10	9901.35	cancelled	2026-06-07 05:56:32.167373
+f91512ef-7045-4fe5-a449-faa326826116	f8b3c7fc-092d-4908-955d-1b9759fb6c44	HOTEL-9	mumbai	2026-07-16	2026-08-02	8946.93	confirmed	2026-06-26 05:22:52.624987
+7ab97b4d-1385-4a39-b37d-1c908bfa5d0c	1ae2931d-277f-4016-bfd5-c940b05df1b3	HOTEL-13	bangalore	2026-07-15	2026-08-19	8165.25	confirmed	2026-06-28 23:27:26.734587
+ab9d580f-8dd7-4387-afa4-85b541436da6	24158f04-2dfa-4f55-9d1b-ad2ae6df7a85	HOTEL-0	mumbai	2026-07-19	2026-08-22	3192.51	confirmed	2026-06-15 17:45:51.067117
+0caef5d1-463d-4bff-83d8-90e65a50d5ca	2a569611-2d83-4e6e-8fd5-19d27a67a4da	HOTEL-19	bangalore	2026-07-22	2026-08-19	3139.84	confirmed	2026-06-28 02:00:58.361302
+70c6a1a9-7be5-42fe-a14b-af34fc7eef28	dc3a75bb-2e5f-4343-9fb5-7acaf94f7cb3	HOTEL-12	delhi	2026-07-18	2026-07-29	3121.64	confirmed	2026-06-27 00:08:54.692342
+7cbd0f10-35fb-4d30-8740-fe222c661ad9	5f85f059-1a23-404f-bb76-75b3f244a747	HOTEL-8	delhi	2026-07-15	2026-08-09	7659.08	cancelled	2026-06-11 02:32:11.271066
+502441ed-1cc2-417f-92af-93219af1b1b2	e4035723-e0e6-4505-9e4f-ea2bf8af04d9	HOTEL-1	mumbai	2026-07-17	2026-08-09	6337.92	confirmed	2026-07-04 00:22:26.271122
+0f91033a-5da3-4341-b9e6-b0a8f1c8f1c6	20d1bcb1-cf5b-4bbb-8686-c821288ac1ee	HOTEL-19	mumbai	2026-07-13	2026-08-13	1097.57	cancelled	2026-07-04 16:19:15.375703
+620166ee-1d24-484e-b92e-57f9793d7c90	dacdbef8-d090-4eca-9197-fb196547c36d	HOTEL-3	hyderabad	2026-07-15	2026-07-29	9016.97	pending	2026-06-13 15:36:54.505024
+3c86390e-fc98-4529-839e-64c29a1e2459	84d92360-f839-4e2b-b861-a8287ac04e46	HOTEL-13	pune	2026-07-09	2026-08-10	5524.09	cancelled	2026-06-23 06:27:56.569934
+2399a349-c87e-4269-89d8-d0e918c4b2e3	8abf4b10-726f-4270-b684-3799882d9af4	HOTEL-5	delhi	2026-07-19	2026-08-02	6174.72	cancelled	2026-06-22 21:55:35.645452
+6bdb2c18-ba4a-4ea7-bd9f-b3cd660d444a	0fffc13e-a227-4467-877e-4f3bfac4dd4f	HOTEL-18	pune	2026-07-10	2026-07-30	6094.97	pending	2026-06-15 16:06:09.996315
+a0a52cb1-5ec6-4f08-bf27-674da0788104	119a0a71-5896-4e44-b1ac-145a602953f1	HOTEL-0	hyderabad	2026-07-17	2026-08-01	5574.75	cancelled	2026-06-17 11:24:40.790485
+7b1681fd-be15-4ffd-9f40-1b8a9c3a07ab	66b27e42-7237-43c9-9464-68663e196141	HOTEL-14	pune	2026-07-22	2026-08-07	3248.12	cancelled	2026-07-02 00:33:55.376314
+0a7c740e-566e-437f-8ce0-88d35944c3c4	21201135-61a9-42ee-89b6-d6bcd3de3562	HOTEL-10	hyderabad	2026-07-18	2026-07-28	8160.47	confirmed	2026-06-22 11:35:30.738783
+84e255d5-712e-4607-9df5-10f08b4c601c	f506921c-2632-4819-be3b-70d63b5201d1	HOTEL-4	bangalore	2026-07-23	2026-08-15	3940.05	cancelled	2026-06-13 07:59:56.278142
+6247a6c1-62e5-4ab2-858d-7a5b4eb238db	d41a6e07-bfa2-4242-9e84-6c5012523267	HOTEL-9	hyderabad	2026-07-07	2026-08-09	4516.34	confirmed	2026-06-15 07:50:18.474626
+70023a5a-7829-402a-93f3-1c38ce047d42	fc44f8d9-f3ac-44bc-8a33-e3eb015e387d	HOTEL-16	mumbai	2026-07-20	2026-08-21	1626.45	confirmed	2026-06-09 05:55:19.106186
+58295c8a-04a9-41c0-8483-bbbe7a8f5c74	ca108b5e-2713-4355-81ff-e94965296d98	HOTEL-13	delhi	2026-07-26	2026-08-02	1360.48	confirmed	2026-06-30 03:58:01.047501
+f4b9255c-59d6-4db2-840e-69f816d1c0c4	2bd24b45-6d55-4baa-bfee-950b7cdf2caf	HOTEL-9	bangalore	2026-07-09	2026-08-06	5412.92	cancelled	2026-06-11 13:14:00.857072
+4c3e186f-b22b-4214-850c-2dcf619c39cf	3885af68-900a-4cdd-8755-85f59d576745	HOTEL-2	pune	2026-07-14	2026-08-01	8497.18	cancelled	2026-06-21 14:12:19.670924
+7e5822f9-15d3-43e1-8735-03bf1db5fd85	f7fec421-b499-48ce-9a1c-85372bdbbce3	HOTEL-8	mumbai	2026-07-23	2026-08-11	9036.00	pending	2026-06-08 00:16:16.439006
+fea42948-28e2-4e5d-9603-1c5a9dd5844c	063501f9-0747-4259-a5eb-108b148b9fd9	HOTEL-14	hyderabad	2026-07-26	2026-08-08	3240.10	cancelled	2026-06-19 02:28:27.231331
+681a9afc-cf95-45d7-80e7-582879f66c1a	754c688d-2b35-46b0-a00a-0aae8e70e087	HOTEL-16	hyderabad	2026-07-07	2026-08-19	6992.70	cancelled	2026-06-07 09:26:53.522863
+ee8b501b-f177-4f86-a609-7f082567fe38	7d7e60df-5a1b-4da1-b1e1-13e552806518	HOTEL-16	bangalore	2026-07-16	2026-08-06	8607.04	cancelled	2026-06-08 11:37:59.137824
+4efc5d14-0103-4393-bd3a-d8520c8baf9a	d40942e3-084b-4bb2-9fb4-c6d60a8726fb	HOTEL-8	bangalore	2026-07-14	2026-08-08	2482.58	confirmed	2026-07-02 23:59:41.00064
+5d14ef42-e40a-43fb-a9f9-e1b33aafe067	0c294801-a2eb-48bc-8e3d-23049dc0e57f	HOTEL-10	hyderabad	2026-07-21	2026-08-23	4538.74	cancelled	2026-07-01 23:17:49.175039
+28e8ccbd-991a-4dc0-8d48-172aa0f1aa1d	80b625f4-26b3-4ed3-ad24-b432a2514ce0	HOTEL-16	delhi	2026-07-17	2026-08-18	5720.58	confirmed	2026-06-30 04:27:40.783399
+2888915e-105b-481d-b181-ffe5b74aba92	e6b0bf6e-6817-40a1-bb57-52672bcfd9e4	HOTEL-11	pune	2026-07-08	2026-08-01	5170.52	confirmed	2026-07-05 21:40:34.973092
+9f959101-d720-435e-906f-0709e66e7ad3	dc2bb56d-35bb-40f3-b39e-bd2307a87896	HOTEL-12	hyderabad	2026-07-08	2026-07-30	3964.31	pending	2026-06-25 04:15:23.640075
+6a8e84a6-9ffc-4ba5-96ca-2e4357434a48	89fe7745-dda9-4dcf-aa04-0d0fe7dcb4f1	HOTEL-8	mumbai	2026-07-26	2026-08-20	7836.33	cancelled	2026-06-14 08:38:53.569426
+32615f9d-ea16-4438-a39c-c107fdfa7b94	808f8433-373c-43d3-b87b-3fcddd535997	HOTEL-12	hyderabad	2026-07-16	2026-08-02	5908.18	pending	2026-06-11 09:29:01.564166
+c6f7b3a9-747a-4da5-af0f-98708e21c7c9	85263dea-c955-4be5-af2d-3a290c27e5ab	HOTEL-6	pune	2026-07-10	2026-08-26	4546.24	pending	2026-06-19 06:24:37.415928
+5e316002-1146-45b4-ac0d-856d07db70c6	8682a090-338d-4b2c-83b0-714fa3a87c71	HOTEL-1	mumbai	2026-07-11	2026-08-17	5272.75	confirmed	2026-06-27 15:39:56.618312
+aaef8351-80ba-4852-8dc4-455faab902dd	4773000a-d5b1-4ddb-9127-1c1bc18786fb	HOTEL-0	hyderabad	2026-07-25	2026-08-12	7996.96	pending	2026-06-30 14:43:56.441601
+9ea13b7a-0146-4200-ba43-5d559e31d7ed	4065f41d-83f4-4526-af97-959bc1cba16e	HOTEL-14	pune	2026-07-22	2026-08-13	1434.20	pending	2026-06-23 11:05:07.762935
+11ef0549-447c-4b21-9130-5e5c016af8e7	f15e1bf5-06ea-4ce7-82b4-9a90e9dd15ea	HOTEL-1	delhi	2026-07-22	2026-07-28	4927.52	cancelled	2026-07-03 15:44:11.284201
+be737a61-15d7-4c21-8b92-6b83ef8a7195	a92f0eac-4e76-4357-8d0c-9c3b3c4e2b15	HOTEL-6	bangalore	2026-07-22	2026-08-01	6989.43	pending	2026-06-16 23:05:31.950878
+3878f3ad-a9f8-4146-9944-e708a0289c58	e8a6fda4-88f9-4d92-b57a-4a813adc5f43	HOTEL-18	delhi	2026-07-09	2026-08-20	8843.22	confirmed	2026-06-16 22:01:56.490774
+903c2aed-dd1b-41ce-abf8-87b20cf4224b	77a85a0d-2c18-433a-9a4f-10caa540a796	HOTEL-12	delhi	2026-07-07	2026-07-31	4919.66	pending	2026-06-26 11:39:24.99048
+c04f1051-5576-4870-bb86-9e38b10fa4b4	70b9c29b-a002-4459-aa42-ce2ade633acf	HOTEL-7	bangalore	2026-07-22	2026-08-13	9378.36	cancelled	2026-06-15 14:45:34.121853
+be08603c-8942-4eef-8d85-e2a08f13f2df	ebb0f9e2-b7bf-48c3-9a0c-270cfbd30c1f	HOTEL-4	pune	2026-07-20	2026-08-02	7722.63	cancelled	2026-06-27 01:09:20.665755
+\.
+
+
+--
+-- Name: booking_events_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.booking_events_id_seq', 60, true);
+
+
+--
+-- Name: booking_events booking_events_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.booking_events
+    ADD CONSTRAINT booking_events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hotel_bookings hotel_bookings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.hotel_bookings
+    ADD CONSTRAINT hotel_bookings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: idx_city_created; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_city_created ON public.hotel_bookings USING btree (city, created_at);
+
+
+--
+-- Name: idx_org_status; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX idx_org_status ON public.hotel_bookings USING btree (org_id, status);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict XkL4h2Z0uac1oSwXvGu54sXV6Frp8LMMB45gKoFTn2yFx90HhCwtieGupeNbZEz
+
