@@ -66,15 +66,6 @@ Devops-Assessment/
 
 ![Architecture](images/Architecture.png)
 
-```
-Local Development
-
-Docker Compose
-      │
-      ▼
- PostgreSQL Container
-```
-
 ---
 
 # Technologies Used
