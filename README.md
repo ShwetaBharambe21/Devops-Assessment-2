@@ -64,9 +64,9 @@ Devops-Assessment/
 
 # Architecture
 
-```
-![Architecture](images/architecture.png)
+![Architecture](images/Architecture.png)
 
+```
 Local Development
 
 Docker Compose
@@ -127,7 +127,7 @@ terraform plan
 
 # Local Database Setup
 
-![Docker Running](images/docker-running and database-verification.png)
+![Docker Running](images/docker-running-and-database-verification.png)
 
 Start PostgreSQL
 
