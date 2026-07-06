@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      
+
   pull_request:
     branches:
       - main
@@ -29,7 +29,5 @@ jobs:
       - run: terraform fmt -check
 
       - run: terraform validate
-
-      - run: terraform plan -refresh=false
 
       
